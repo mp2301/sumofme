@@ -9,11 +9,12 @@ This page collects short, reusable prompt templates and patterns that teams can 
 
 ## Quick TOC
 
-- Developer productivity
-- RAG (Retrieval-augmented generation)
-- Data extraction
-- Safety checks
-- Testing & governance
+- [How to use these recipes](#how-to-use-these-recipes)
+- [Developer productivity](#developer-productivity)
+- [Retrieval-augmented generation (RAG)](#retrieval-augmented-generation-rag)
+- [Data transformation / extraction](#data-transformation--extraction)
+- [Safety and red-teaming](#safety-and-red-teaming)
+- [Prompt testing and governance](#prompt-testing-and-governance)
 
 ## How to use these recipes
 
@@ -31,6 +32,9 @@ You are an expert software engineer. Given the following function signature and 
 
 Function:
 [FUNCTION]
+```
+
+Task: propose unit test cases
 
 Prompt (copy & adapt):
 ```text
@@ -41,13 +45,9 @@ Edge cases: [EDGE_CASES]
 
 Return JSON array of objects with fields: name, summary.
 ```
-Function description: [DESCRIPTION]
-Edge cases: [EDGE_CASES]
-
-Return JSON array of objects with fields: name, summary.
-"""
 
 ## Retrieval-augmented generation (RAG)
+
 Prompt (user, copy & adapt):
 ```text
 Context documents: [DOC_SNIPPETS]  # short excerpts or a summary list, numbered
@@ -58,11 +58,6 @@ Instructions:
 - After the answer, list the source ids used in square brackets, e.g. [1], [2].
 - If uncertain, say "I am not sure" and suggest search terms or next steps.
 ```
-Instructions:
-- Answer concisely in 3-6 sentences.
-- After the answer, list the source ids used in square brackets, e.g. [1], [2].
-- If uncertain, say "I am not sure" and suggest search terms or next steps.
-"""
 
 ## Data transformation / extraction
 
@@ -76,7 +71,7 @@ Text:
 [RAW_TEXT]
 ```
 
-## Safety and red-teaming (short)
+## Safety and red-teaming
 
 - Always use a system-level instruction restricting disallowed outputs (e.g., PII exfiltration, illegal instructions).
 - Include a final sanity-check step in prompts to verify no sensitive tokens were included.
@@ -86,23 +81,17 @@ Example safety check prompt fragment:
 Before returning, verify the response contains no personal data (names, emails, IDs). If it does, redact or respond with 'contains-sensitive-data'.
 ```
 
-## Prompt testing and evaluation (quick wins)
+## Prompt testing and governance
 
-- Keep 5-10 canonical prompts and expected outputs for high-risk paths.
+Testing:
+
+- Keep 5–10 canonical prompts and expected outputs for high-risk paths.
 - Run them in CI against model updates and flag regressions in a dashboard.
+- Automate canary evaluations against a test corpus; compare response fingerprints for regressions.
 
-## Governance reminders
+Governance:
 
-- Store prompts and their audit metadata in a versioned store (git or internal governance DB).
-- Ensure legal & privacy review for prompts that process customer data.
-
-## Prompt testing and evaluation
-
-- Maintain a small suite of prompts and expected outputs for high-risk workflows.
-- Automate canary evaluations: run prompts against a test corpus and compare response fingerprints for regression.
-
-## Governance notes
-
-- Log the prompt, model id, and selected retrieval evidence for auditability.
+- Store prompts and audit metadata in a versioned repo or internal governance DB.
+- Log prompt, model id, and selected retrieval evidence for auditability.
 - Apply data minimization: remove or redact PII before sending for generation.
 
