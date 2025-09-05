@@ -1,0 +1,72 @@
+# OS / Editor
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+*.DS_Store
+.DS_Store?
+~$*
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
+
+# VS Code / IDE
+.vscode/
+.history/
+.idea/
+*.code-workspace
+
+# PowerShell / Scripts
+*.ps1xml
+*.psd1
+*.psm1
+*.ps1-Tests.log
+logs/
+
+# Dependency / tool caches (add if tools introduced later)
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Coverage / test artifacts (future-proofing)
+coverage*
+*.coverage
+*.lcov
+.nyc_output/
+
+# Build / packaging artifacts
+dist/
+build/
+target/
+out/
+*.zip
+*.tar
+*.tar.gz
+
+# Generated reports (custom scripts could output here)
+reports/
+
+# Temporary working dirs
+tmp/
+temp/
+
+# Mac metadata (in case of cross-platform edits)
+._*
+
+# Windows recycle / store
+$RECYCLE.BIN/
+
+# Local environment overrides
+.env
+*.env.local
+.env.*.local
+
+# Notes / scratch
+scratch*/
+*.scratch.md
+
+# Ensure we DO commit PowerShell scripts
+!scripts/*.ps1

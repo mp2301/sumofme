@@ -1,0 +1,42 @@
+name: ADR Index Regeneration
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/enterprise/architecture/adr/**'
+      - 'scripts/Generate-AdrIndex.ps1'
+      - '.github/workflows/adr-index.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate ADR Index
+        shell: pwsh
+        run: |
+          pwsh -ExecutionPolicy Bypass -File scripts/Generate-AdrIndex.ps1
+
+      - name: Commit & Push (if changed)
+        shell: pwsh
+        run: |
+          if (git diff --quiet) {
+            Write-Host 'No index changes to commit.'
+          }
+          else {
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add docs/enterprise/architecture/adr/_index.md
+            git commit -m 'chore: regenerate ADR index'
+            git push
+            Write-Host 'ADR index updated and pushed.'
+          }

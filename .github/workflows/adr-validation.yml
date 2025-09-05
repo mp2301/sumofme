@@ -1,0 +1,31 @@
+name: ADR Validation
+on:
+  pull_request:
+    paths:
+      - 'docs/enterprise/architecture/adr/**.md'
+      - 'docs/enterprise/architecture/create-adr.ps1'
+      - 'scripts/Validate-Adrs.ps1'
+      - 'scripts/Generate-AdrIndex.ps1'
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/enterprise/architecture/adr/**.md'
+      - 'scripts/Validate-Adrs.ps1'
+      - 'scripts/Generate-AdrIndex.ps1'
+
+jobs:
+  validate-adrs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate ADRs
+        shell: pwsh
+        run: ./scripts/Validate-Adrs.ps1
+      - name: Regenerate ADR Index (dry run)
+        shell: pwsh
+        run: |
+          ./scripts/Generate-AdrIndex.ps1
+          if (!(git diff --quiet)) {
+            echo 'ADR index would change. Commit locally to persist.'
+            git --no-pager diff --name-only
+          }

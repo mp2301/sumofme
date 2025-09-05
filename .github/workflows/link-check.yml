@@ -1,0 +1,16 @@
+name: Link Check
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+jobs:
+  linkcheck:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run link check
+        shell: pwsh
+        run: |
+          Set-Location $env:GITHUB_WORKSPACE\Cloud Network
+          pwsh ../scripts/check-links.ps1 -Root $env:GITHUB_WORKSPACE -FailOnWarning
