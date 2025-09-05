@@ -19,3 +19,4 @@ Below is a lightweight list of recent ADRs. For full history, list files matchin
 
 Include: `../../_footer.md`
 
+
