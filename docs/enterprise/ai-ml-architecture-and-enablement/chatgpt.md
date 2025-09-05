@@ -1,22 +1,6 @@
 ---
 Last Reviewed: 2025-09-04
 Tags: chatgpt, generative-ai
-
-## TLDR and starter checklist
-
-TLDR: Use enterprise-managed ChatGPT or API-based integrations for production and RAG systems; keep consumer accounts for low-risk exploration only. Treat prompts and retrieval stores as sensitive assets and apply access, logging and retention controls.
-
-Starter checklist for a pilot (quick wins):
-
-- Classify the data your pilot will touch (sensitive / regulated / public).
-- Choose offering: consumer for exploration, enterprise or API for production.
-- Implement input filters to redact PII and set up central logging for prompts/outputs (if allowed).
-- Define a human-in-the-loop approval point and an incident contact.
-- Run a short safety test suite (5 prompts) and an initial hallucination/regression check.
-
----
-Last Reviewed: 2025-09-04
-Tags: chatgpt, generative-ai
 ---
 
 # OpenAI & ChatGPT
